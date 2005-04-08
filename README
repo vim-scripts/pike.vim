@@ -1,0 +1,5 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1255
+
+Borrowed a few things from (the much superior) lpc.vim by Shizhu Pan -- which fixed bug with parens among other things, quit highlighting arrays/mappings as a single giant identifier, and updated the predef function list dramatically.
+
+It is otherwise the original syntax file written by Francesco Chemolli.
