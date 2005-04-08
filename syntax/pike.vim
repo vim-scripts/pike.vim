@@ -1,4 +1,4 @@
-" $Id: pike.vim,v 1.4 2005/04/08 19:43:18 jettero Exp $
+" $Id: pike.vim,v 1.5 2005/04/08 20:19:30 jettero Exp $
 
 " Vim syntax file
 " Language:     Pike
@@ -20,7 +20,7 @@ syn keyword pikeLabel		case default
 syn keyword pikeConditional	if else switch
 syn keyword pikeRepeat		while for foreach do
 syn keyword pikeStatement	gauge destruct lambda inherit import typeof
-syn keyword pikeException	catch
+syn keyword pikeException	catch throw
 syn keyword pikeType		inline nomask private protected public static
 
 syn keyword pikeTodo contained	TODO FIXME XXX
@@ -114,7 +114,7 @@ syn match pikepredef "[>.]\@<!\<\(normalize_path\|object_program\|object_variabl
 syn match pikepredef "[>.]\@<!\<\(query_num_arg\|random\|random_seed\|random_string\|remove_call_out\|replace\|replace_master\)\>"
 syn match pikepredef "[>.]\@<!\<\(reverse\|rm\|round\|rows\|search\|set_priority\|set_weak_flag\|sgn\|signal\|signame\|signum\|sin\)\>"
 syn match pikepredef "[>.]\@<!\<\(sinh\|sizeof\|sleep\|sort\|sprintf\|sqrt\|sscanf\|strerror\|string_to_unicode\|string_to_utf8\)\>"
-syn match pikepredef "[>.]\@<!\<\(stringp\|strlen\|tan\|tanh\|this_object\|throw\|time\|trace\|ualarm\|unicode_to_string\)\>"
+syn match pikepredef "[>.]\@<!\<\(stringp\|strlen\|tan\|tanh\|this_object\|time\|trace\|ualarm\|unicode_to_string\)\>"
 syn match pikepredef "[>.]\@<!\<\(upper_case\|utf8_to_string\|values\|version\|werror\|write\|zero_type\)\>"
 
 syn keyword pikeType		int string void float mapping array multiset mixed
