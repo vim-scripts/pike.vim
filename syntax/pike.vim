@@ -1,4 +1,4 @@
-" $Id: pike.vim,v 1.3 2005/04/08 16:02:36 jettero Exp $
+" $Id: pike.vim,v 1.4 2005/04/08 19:43:18 jettero Exp $
 
 " Vim syntax file
 " Language:     Pike
@@ -95,24 +95,27 @@ else
 endif
 syntax match pikeCommentError	"\*/"
 
-syn keyword pikepredef __empty_program __parse_pike_type _disable_threads _do_call_outs _exit _next _prev _refs _typeof abs
-syn keyword pikepredef acos acosh add_constant aggregate aggregate_mapping alarm all_constants allocate array_sscanf arrayp
-syn keyword pikepredef asin asinh atan atan2 atanh atexit backtrace basename basetype call_function call_out call_out_info
-syn keyword pikepredef callablep cd ceil column combine_path combine_path_amigaos combine_path_nt combine_path_unix compile
-syn keyword pikepredef compile_file compile_string copy_value cos cosh cpp crypt ctime decode_value delay
-syn keyword pikepredef describe_backtrace describe_error destruct dirname encode_value encode_value_canonic enumerate equal
-syn keyword pikepredef errno error exece exit exp explode_path file_stat file_truncate filesystem_stat filter find_call_out
-syn keyword pikepredef floatp floor fork function_name function_object function_program functionp gc get_all_groups
-syn keyword pikepredef get_all_users get_backtrace get_dir get_groups_for_user get_iterator get_profiling_info
-syn keyword pikepredef get_weak_flag getcwd getenv getgrgid getgrnam gethrtime gethrvtime getpid getpwnam getpwuid glob
-syn keyword pikepredef gmtime has_index has_prefix has_suffix has_value hash hash_7_0 hash_7_4 hash_value indices intp
-syn keyword pikepredef is_absolute_path kill load_module localtime log lower_case m_delete map mappingp master max min
-syn keyword pikepredef mkdir mkmapping mkmultiset mktime multisetp mv next_object normalize_path object_program
-syn keyword pikepredef object_variablep objectp pow programp putenv query_num_arg random random_seed random_string
-syn keyword pikepredef remove_call_out replace replace_master reverse rm round rows search set_priority set_weak_flag sgn
-syn keyword pikepredef signal signame signum sin sinh sizeof sleep sort sprintf sqrt sscanf strerror string_to_unicode
-syn keyword pikepredef string_to_utf8 stringp strlen tan tanh this_object throw time trace ualarm unicode_to_string
-syn keyword pikepredef upper_case utf8_to_string values version werror write zero_type
+syn match pikepredef "[>.]\@<!\<\(__empty_program\|__parse_pike_type\|_disable_threads\|_do_call_outs\|_exit\|_next\|_prev\)\>"
+syn match pikepredef "[>.]\@<!\<\(_refs\|_typeof\|abs\|acos\|acosh\|add_constant\|aggregate\|aggregate_mapping\|alarm\)\>"
+syn match pikepredef "[>.]\@<!\<\(all_constants\|allocate\|array_sscanf\|arrayp\|asin\|asinh\|atan\|atan2\|atanh\|atexit\)\>"
+syn match pikepredef "[>.]\@<!\<\(backtrace\|basename\|basetype\|call_function\|call_out\|call_out_info\|callablep\|cd\|ceil\)\>"
+syn match pikepredef "[>.]\@<!\<\(column\|combine_path\|combine_path_amigaos\|combine_path_nt\|combine_path_unix\|compile\)\>"
+syn match pikepredef "[>.]\@<!\<\(compile_file\|compile_string\|copy_value\|cos\|cosh\|cpp\|crypt\|ctime\|decode_value\|delay\)\>"
+syn match pikepredef "[>.]\@<!\<\(describe_backtrace\|describe_error\|destruct\|dirname\|encode_value\|encode_value_canonic\)\>"
+syn match pikepredef "[>.]\@<!\<\(enumerate\|equal\|errno\|error\|exece\|exit\|exp\|explode_path\|file_stat\|file_truncate\)\>"
+syn match pikepredef "[>.]\@<!\<\(filesystem_stat\|filter\|find_call_out\|floatp\|floor\|fork\|function_name\|function_object\)\>"
+syn match pikepredef "[>.]\@<!\<\(function_program\|functionp\|gc\|get_all_groups\|get_all_users\|get_backtrace\|get_dir\)\>"
+syn match pikepredef "[>.]\@<!\<\(get_groups_for_user\|get_iterator\|get_profiling_info\|get_weak_flag\|getcwd\|getenv\)\>"
+syn match pikepredef "[>.]\@<!\<\(getgrgid\|getgrnam\|gethrtime\|gethrvtime\|getpid\|getpwnam\|getpwuid\|glob\|gmtime\|has_index\)\>"
+syn match pikepredef "[>.]\@<!\<\(has_prefix\|has_suffix\|has_value\|hash\|hash_7_0\|hash_7_4\|hash_value\|indices\|intp\)\>"
+syn match pikepredef "[>.]\@<!\<\(is_absolute_path\|kill\|load_module\|localtime\|log\|lower_case\|m_delete\|map\|mappingp\)\>"
+syn match pikepredef "[>.]\@<!\<\(master\|max\|min\|mkdir\|mkmapping\|mkmultiset\|mktime\|multisetp\|mv\|next_object\)\>"
+syn match pikepredef "[>.]\@<!\<\(normalize_path\|object_program\|object_variablep\|objectp\|pow\|programp\|putenv\)\>"
+syn match pikepredef "[>.]\@<!\<\(query_num_arg\|random\|random_seed\|random_string\|remove_call_out\|replace\|replace_master\)\>"
+syn match pikepredef "[>.]\@<!\<\(reverse\|rm\|round\|rows\|search\|set_priority\|set_weak_flag\|sgn\|signal\|signame\|signum\|sin\)\>"
+syn match pikepredef "[>.]\@<!\<\(sinh\|sizeof\|sleep\|sort\|sprintf\|sqrt\|sscanf\|strerror\|string_to_unicode\|string_to_utf8\)\>"
+syn match pikepredef "[>.]\@<!\<\(stringp\|strlen\|tan\|tanh\|this_object\|throw\|time\|trace\|ualarm\|unicode_to_string\)\>"
+syn match pikepredef "[>.]\@<!\<\(upper_case\|utf8_to_string\|values\|version\|werror\|write\|zero_type\)\>"
 
 syn keyword pikeType		int string void float mapping array multiset mixed
 syn keyword pikeType		program object function class
