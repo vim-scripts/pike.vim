@@ -1,4 +1,4 @@
-" $Id: pike.vim,v 1.10 2005/04/10 21:30:16 jettero Exp $
+" $Id: pike.vim,v 1.13 2005/04/11 14:39:04 jettero Exp $
 
 " Vim syntax file
 " Language:     Pike
@@ -27,12 +27,14 @@ syn keyword pikeTodo contained	TODO FIXME XXX
 
 " String and Character constants
 " Highlight special characters (those which have a backslash) differently
-syn match pikeSpecial contained	"\\[0-7][0-7][0-7]\=\|\\."
-syn region pikeString   start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=pikeSpecial
-syn match pikeCharacter		"'[^\\]'"
-syn match pikeSpecialCharacter	"'\\.'"
-syn match pikeSpecialCharacter	"'\\[0-7][0-7]'"
-syn match pikeSpecialCharacter	"'\\[0-7][0-7][0-7]'"
+syn match  pikeSpecial contained	"\\[0-7][0-7][0-7]\=\|\\."
+syn match  pikeFormat  display "%\(\d\+\)\=[-+ |=#@:.]*\(\d\+\)\=\('\I\+'\|'\I*\\'\I*'\)\=[OsdicoxXf]" contained
+syn match  pikeFormat  display "%%" contained
+syn region pikeString   start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=pikeSpecial,pikeFormat
+syn match  pikeCharacter		"'[^\\]'"
+syn match  pikeSpecialCharacter	"'\\.'"
+syn match  pikeSpecialCharacter	"'\\[0-7][0-7]'"
+syn match  pikeSpecialCharacter	"'\\[0-7][0-7][0-7]'"
 
 " Stolen verbatim from perl.vim
 syn match pikeNumber "[+-]\=\(\<\d[[:digit:]_]*L\=\>\|0[xX]\x[[:xdigit:]_]*\>\)"
@@ -47,7 +49,7 @@ syn match pikeRange    "\d\+\s*[.][.]\s*\d\+"
 
 "!" stolen from lpc.vim directly
 " catch errors caused by wrong parenthesis and brackets
-syn cluster	pikeParenGroup	contains=pikeParenError
+syn cluster	pikeParenGroup	contains=pikeParenError,pikeIncluded,pikeSpecial,pikeCommentSkip,pikeCommentString,pikeComment2String,@pikeCommentGroup,pikeCommentStartError,pikeUserCont,pikeUserLabel,pikeBitField,pikeCommentSkip,pikeOctalZero,pikeCppOut,pikeCppOut2,pikeCppSkip
 syn region	pikeParen	transparent start='(' end=')' contains=ALLBUT,@pikeParenGroup,pikeCppParen,pikeErrInBracket,pikeCppBracket,pikeCppString,@pikeEfunGroup,pikeApplies,pikeKeywdError
 " pikeCppParen: same as pikeParen but ends at end-of-line; used in pikeDefine
 syn region	pikeCppParen	transparent start='(' skip='\\$' excludenl end=')' end='$' contained contains=ALLBUT,@pikeParenGroup,pikeErrInBracket,pikeParen,pikeBracket,pikeString,@pikeEfunGroup,pikeApplies,pikeKeywdError
@@ -171,6 +173,7 @@ if version >= 508 || !exists("did_pike_syntax_inits")
   HiLink pikeCommentSkip	pikeComment
   HiLink pikeString		String
   HiLink pikeComment		Comment
+  HiLink pikeFormat  	    PreProc
   HiLink pikeSpecial		SpecialChar
   HiLink pikeTodo		Todo
   HiLink pikeException		pikeStatement
