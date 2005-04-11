@@ -1,4 +1,4 @@
-" $Id: pike.vim,v 1.6 2005/04/08 20:25:50 jettero Exp $
+" $Id: pike.vim,v 1.10 2005/04/10 21:30:16 jettero Exp $
 
 " Vim syntax file
 " Language:     Pike
@@ -28,15 +28,26 @@ syn keyword pikeTodo contained	TODO FIXME XXX
 " String and Character constants
 " Highlight special characters (those which have a backslash) differently
 syn match pikeSpecial contained	"\\[0-7][0-7][0-7]\=\|\\."
-syn region pikeString		start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=pikeSpecial
+syn region pikeString   start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=pikeSpecial
 syn match pikeCharacter		"'[^\\]'"
 syn match pikeSpecialCharacter	"'\\.'"
 syn match pikeSpecialCharacter	"'\\[0-7][0-7]'"
 syn match pikeSpecialCharacter	"'\\[0-7][0-7][0-7]'"
 
+" Stolen verbatim from perl.vim
+syn match pikeNumber "[+-]\=\(\<\d[[:digit:]_]*L\=\>\|0[xX]\x[[:xdigit:]_]*\>\)"
+syn match pikeFloat  "[+-]\=\<\d[[:digit:]_]*[eE][\-+]\=\d\+"
+syn match pikeFloat  "[+-]\=\<\d[[:digit:]_]*\.[[:digit:]_]*\([eE][\-+]\=\d\+\)\="
+syn match pikeFloat  "[+-]\=\<\.[[:digit:]_]\+\([eE][\-+]\=\d\+\)\="
+
+syn match pikeFloatError "[.]\d\+" " curiously, this only matches trailing stupid extra float characters if the floats were already matched
+syn match pikeOctalError "0\o*[89]\d*"     " even though this one appears to know to highlight bad octal in any case
+
+syn match pikeRange    "\d\+\s*[.][.]\s*\d\+"
+
 "!" stolen from lpc.vim directly
 " catch errors caused by wrong parenthesis and brackets
-syn cluster	pikeParenGroup	contains=pikeParenError,pikeIncluded,pikeSpecial,pikeCommentSkip,pikeCommentString,pikeComment2String,@pikeCommentGroup,pikeCommentStartError,pikeUserCont,pikeUserLabel,pikeBitField,pikeCommentSkip,pikeOctalZero,pikeCppOut,pikeCppOut2,pikeCppSkip,pikeFormat,pikeNumber,pikeFloat,pikeOctal,pikeOctalError,pikeNumbersCom
+syn cluster	pikeParenGroup	contains=pikeParenError
 syn region	pikeParen	transparent start='(' end=')' contains=ALLBUT,@pikeParenGroup,pikeCppParen,pikeErrInBracket,pikeCppBracket,pikeCppString,@pikeEfunGroup,pikeApplies,pikeKeywdError
 " pikeCppParen: same as pikeParen but ends at end-of-line; used in pikeDefine
 syn region	pikeCppParen	transparent start='(' skip='\\$' excludenl end=')' end='$' contained contains=ALLBUT,@pikeParenGroup,pikeErrInBracket,pikeParen,pikeBracket,pikeString,@pikeEfunGroup,pikeApplies,pikeKeywdError
@@ -51,28 +62,6 @@ syn region	pikeBracket	transparent start='\[' end=']' contains=ALLBUT,@pikeParen
 " pikeCppBracket: same as pikeParen but ends at end-of-line; used in pikeDefine
 syn region	pikeCppBracket	transparent start='\[' skip='\\$' excludenl end=']' end='$' contained contains=ALLBUT,@pikeParenGroup,pikeErrInParen,pikeParen,pikeBracket,pikeString,@pikeEfunGroup,pikeApplies,pikeFuncName,pikeKeywdError
 syn match	pikeErrInBracket	display contained "[);{}]"
-
-" integer number, or floating point number without a dot and with "f".
-syn case ignore
-syn match	pikeNumbers	display transparent "\<\d\|\.\d" contains=pikeNumber,pikeFloat,pikeOctalError,pikeOctal
-" Same, but without octal error (for comments)
-syn match	pikeNumbersCom	display contained transparent "\<\d\|\.\d" contains=pikeNumber,pikeFloat,pikeOctal
-syn match	pikeNumber	display contained "\d\+\(u\=l\{0,2}\|ll\=u\)\>"
-" hex number
-syn match	pikeNumber	display contained "0x\x\+\(u\=l\{0,2}\|ll\=u\)\>"
-" Flag the first zero of an octal number as something special
-syn match	pikeOctal	display contained "0\o\+\(u\=l\{0,2}\|ll\=u\)\>" contains=pikeOctalZero
-syn match	pikeOctalZero	display contained "\<0"
-syn match	pikeFloat	display contained "\d\+f"
-" floating point number, with dot, optional exponent
-syn match	pikeFloat	display contained "\d\+\.\d*\(e[-+]\=\d\+\)\=[fl]\="
-" floating point number, starting with a dot, optional exponent
-syn match	pikeFloat	display contained "\.\d\+\(e[-+]\=\d\+\)\=[fl]\=\>"
-" floating point number, without dot, with exponent
-syn match	pikeFloat	display contained "\d\+e[-+]\=\d\+[fl]\=\>"
-" flag an octal number with wrong digits
-syn match	pikeOctalError	display contained "0\o*[89]\d*"
-syn case match
 
 "!" end stealing lpc.vim directly
 
@@ -114,7 +103,7 @@ syn match pikepredef "[>.]\@<!\<\(normalize_path\|object_program\|object_variabl
 syn match pikepredef "[>.]\@<!\<\(query_num_arg\|random\|random_seed\|random_string\|remove_call_out\|replace\|replace_master\)\>"
 syn match pikepredef "[>.]\@<!\<\(reverse\|rm\|round\|rows\|search\|set_priority\|set_weak_flag\|sgn\|signal\|signame\|signum\|sin\)\>"
 syn match pikepredef "[>.]\@<!\<\(sinh\|sleep\|sort\|sprintf\|sqrt\|strerror\|string_to_unicode\|string_to_utf8\)\>"
-syn match pikepredef "[>.]\@<!\<\(stringp\|strlen\|tan\|tanh\|this_object\|time\|trace\|ualarm\|unicode_to_string\)\>"
+syn match pikepredef "[>.]\@<!\<\(stringp\|strlen\|tan\|tanh\|this\|this_object\|time\|trace\|ualarm\|unicode_to_string\)\>"
 syn match pikepredef "[>.]\@<!\<\(upper_case\|utf8_to_string\|values\|version\|werror\|write\|zero_type\)\>"
 
 syn keyword pikeType		int string void float mapping array multiset mixed
@@ -129,16 +118,16 @@ syn region pikeDefine		start="^\s*#\s*\(define\>\|undef\>\)" skip="\\$" end="$" 
 syn region pikePreProc		start="^\s*#\s*\(pragma\>\|line\>\|warning\>\|warn\>\|error\>\)" skip="\\$" end="$" contains=ALLBUT,pikePreCondit,pikeIncluded,pikeInclude,pikeDefine,pikeInParen
 
 " Highlight User Labels
-syn region	pikeMulti		transparent start='?' end=':' contains=ALLBUT,pikeIncluded,pikeSpecial,pikeTodo,pikeUserLabel,pikeBitField
+" syn region	pikeMulti		transparent start='?' end=':' contains=ALLBUT,pikeIncluded,pikeSpecial,pikeTodo,pikeUserLabel,pikeBitField
 " Avoid matching foo::bar() in C++ by requiring that the next char is not ':'
-syn match	pikeUserLabel	"^\s*\I\i*\s*:$"
-syn match	pikeUserLabel	";\s*\I\i*\s*:$"ms=s+1
-syn match	pikeUserLabel	"^\s*\I\i*\s*:[^:]"me=e-1
-syn match	pikeUserLabel	";\s*\I\i*\s*:[^:]"ms=s+1,me=e-1
+" syn match	pikeUserLabel	"^\s*\I\i*\s*:$"
+" syn match	pikeUserLabel	";\s*\I\i*\s*:$"ms=s+1
+" syn match	pikeUserLabel	"^\s*\I\i*\s*:[^:]"me=e-1
+" syn match	pikeUserLabel	";\s*\I\i*\s*:[^:]"ms=s+1,me=e-1
 
 " Avoid recognizing most bitfields as labels
-syn match	pikeBitField	"^\s*\I\i*\s*:\s*[1-9]"me=e-1
-syn match	pikeBitField	";\s*\I\i*\s*:\s*[1-9]"me=e-1
+" syn match	pikeBitField	"^\s*\I\i*\s*:\s*[1-9]"me=e-1
+" syn match	pikeBitField	";\s*\I\i*\s*:\s*[1-9]"me=e-1
 
 syn sync ccomment pikeComment minlines=10
 
@@ -161,7 +150,9 @@ if version >= 508 || !exists("did_pike_syntax_inits")
   HiLink pikeSpecialCharacter pikeSpecial
   HiLink pikeNumber		Number
   HiLink pikeFloat		Float
+  HiLink pikeRange  	Number
   HiLink pikeOctalError		pikeError
+  HiLink pikeFloatError		pikeError
   HiLink pikeParenError		pikeError
   HiLink pikeInParen		pikeError
   HiLink pikeCommentError	pikeError
