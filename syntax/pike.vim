@@ -1,4 +1,4 @@
-" $Id: pike.vim,v 1.13 2005/04/11 14:39:04 jettero Exp $
+" $Id: pike.vim,v 1.14 2005/04/11 14:46:11 jettero Exp $
 
 " Vim syntax file
 " Language:     Pike
@@ -46,6 +46,8 @@ syn match pikeFloatError "[.]\d\+" " curiously, this only matches trailing stupi
 syn match pikeOctalError "0\o*[89]\d*"     " even though this one appears to know to highlight bad octal in any case
 
 syn match pikeRange    "\d\+\s*[.][.]\s*\d\+"
+syn match pikeRange    "\d\+\s*[.][.]"
+syn match pikeRange    "[.][.]\s*\d\+"
 
 "!" stolen from lpc.vim directly
 " catch errors caused by wrong parenthesis and brackets
